@@ -1,0 +1,42 @@
+.movie-details {
+  display: flex;
+  gap: 20px;
+  margin: 40px;
+  align-items: flex-start;
+  background-color: #1e1e1e; /* Light black background */
+  color: #e0e0e0; /* Light text color for dark background */
+  padding: 25px; /* Increased padding for more spacing */
+  border-radius: 12px; /* Slightly larger border radius */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Enhanced shadow for depth */
+}
+
+.movie-details img {
+  width: 320px; /* Slightly larger image */
+  height: auto;
+  border-radius: 10px; /* Adjusted border radius */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4); /* Enhanced image shadow */
+}
+
+.movie-details .info {
+  flex: 1; /* Allow info to expand to fill available space */
+
+  h2 {
+    font-size: 2rem; /* Larger heading font size */
+    margin-bottom: 15px;
+    color: #e0e0e0;
+    border-bottom: 1px solid #333; /* Add a subtle bottom border */
+    padding-bottom: 10px;
+  }
+
+  p {
+    font-size: 1.1rem; /* Slightly larger paragraph font */
+    margin: 8px 0;
+    color: #9e9e9e;
+    line-height: 1.6; /* Improved line spacing */
+  }
+
+  strong {
+    color: #e0e0e0;
+    font-weight: 600; /* Slightly bolder font weight */
+  }
+}

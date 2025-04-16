@@ -1,0 +1,15 @@
+ <div *ngIf="isAdmin" class="search-bar-container">
+  <input 
+    type="text" 
+    placeholder="Search new movies..."
+    [(ngModel)]="searchTerm"
+    (keyup.enter)="searchMovies()"
+    class="search-input"
+  />
+  <button (click)="searchMovies()" class="search-button">Search</button>
+</div>
+ <div class="movie-list">
+  <div class="movie-card" *ngFor="let movie of movies">
+    <app-movies-card [movie]="movie" [isNew]="movie.isNew"></app-movies-card>
+  </div>
+</div>
