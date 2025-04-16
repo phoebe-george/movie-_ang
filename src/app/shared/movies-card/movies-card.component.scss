@@ -2,13 +2,13 @@ card {
   width: 220px;
   border-radius: 12px;
   overflow: hidden;
-  background: #1e1e1e; /* Light black card background */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Darker shadow for better visibility */
+  background: #1e1e1e; 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); 
   transition: 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #e0e0e0; /* Light text color for dark background */
+  color: #e0e0e0; 
 
   &:hover {
     transform: translateY(-5px);
@@ -39,23 +39,23 @@ card {
   cursor: pointer;
   color: white;
   transition: 0.2s ease;
-  background: linear-gradient(to right, #007bff, #28a745); /* Mixed green-blue button */
+  background: linear-gradient(to right, #007bff, #28a745); 
 
   &.admin {
     &:hover {
-      background: linear-gradient(to right, #0056b3, #1c7c30); /* Darker hover effect */
+      background: linear-gradient(to right, #0056b3, #1c7c30); 
     }
   }
 
   &.user {
     &:hover {
-      background: linear-gradient(to right, #0056b3, #1c7c30); /* Darker hover effect */
+      background: linear-gradient(to right, #0056b3, #1c7c30); 
     }
   }
 }
 
 .btn.remove {
-  background: linear-gradient(to right, #dc3545, #bd2130); // red remove btn
+  background: linear-gradient(to right, #dc3545, #bd2130); 
 
   &:hover {
     background: linear-gradient(to right, #c82333, #a71d2a);

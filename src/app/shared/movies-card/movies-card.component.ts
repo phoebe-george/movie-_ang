@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { MovieService } from 'src/app/service/movie.service';
 
 @Component({
   selector: 'app-movies-card',
@@ -11,13 +12,15 @@ export class MoviesCardComponent {
   @Input() movie: any;
   @Input() isNew:boolean = false;
   // @Input() isAdmin: boolean = false;
-  @Input() isAdmin: boolean = true;
+   isAdmin: boolean = false;
 
-  constructor(private router: Router , private authService: AuthService) {}
+  constructor(private router: Router , private authService: AuthService,
+    private movieService: MovieService
+  ) {}
 
-  // ngOnInit(): void {
-  //   this.isAdmin = this.authService.getRole() === 'ADMIN';
-  // }
+  ngOnInit(): void {
+    this.isAdmin = this.authService.getRole() === 'ADMIN';
+  }
 
   addMovie() {
     console.log('Adding movie:', this.movie.imdbId);
@@ -25,11 +28,34 @@ export class MoviesCardComponent {
     this.movie.isAdded = true;
   }
 
+  // addMovie() {
+  //   console.log('Adding movie:', this.movie.movieName);
+  //   this.movieService.AddMovie(this.movie).subscribe({
+  //     next: () => {
+  //       console.log('Movie adding successfully.');
+  //       this.movie.isAdded = false;
+  //     },
+  //     error: (err) => {
+  //       console.error('Error adding movie:', err);
+  //     }
+  //   });
+  // }
+
+
   removeMovie() {
     console.log('Removing movie:', this.movie.imdbId);
-    // call remove movie service if needed
-    this.movie.isAdded = false;
+  
+    this.movieService.deleteMovie(this.movie.imdbId).subscribe({
+      next: () => {
+        console.log('Movie removed successfully.');
+        this.movie.isAdded = false;
+      },
+      error: (err) => {
+        console.error('Error removing movie:', err);
+      }
+    });
   }
+  
 
   viewDetails() {
     this.router.navigate(['/movies', this.movie.imdbId]);

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import {environment} from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +11,48 @@ import { map, switchMap } from 'rxjs/operators';
 export class MovieService {
   private apiUrl = environment.omdbApiUrl;
 
-  constructor(private readonly http:HttpClient) { }
+  constructor(private readonly http:HttpClient ,
+    private readonly authService: AuthService
+  ) { }
 
-  private readonly DB_URL = "http://localhost:3000/movies";
-  // private readonly DB_URL = "http://localhost:8083/movies";
+  private readonly DB_URL = "http://localhost:8083/movies";
   
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.authService.getToken();
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+  }
+
   GetAllMovies(){
-    return this.http.get<any[]>(this.DB_URL);
+    return this.http.get<any[]>(this.DB_URL, {
+      headers: this.getAuthHeaders()}
+    );
   }
   
   GetMovieByID(id: number) {
-    return this.http.get<any[]>(this.DB_URL, { params: { imdbId: id } });
+    return this.http.get<any[]>(this.DB_URL, {
+      headers: this.getAuthHeaders(),
+      params: { imdbId: id.toString() }
+    }
+  );
   }
+
+
+  deleteMovie(id: number) {
+    return this.http.delete<any[]>(`${this.DB_URL}/delete`, {
+      headers: this.getAuthHeaders(),
+      params: { imdbId: id.toString() }
+    });
+  }
+
+  AddMovie(movie: any) { 
+    return this.http.post<any>(`${this.DB_URL}/add`, movie, {
+      headers: this.getAuthHeaders()
+    });
+  }
+  
 
   searchMovie(title: string): Observable<any> {
     const url = `${this.apiUrl}?apikey=${environment.omdbApiKey}&t=${title}`;

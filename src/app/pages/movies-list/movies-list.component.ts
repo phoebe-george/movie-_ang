@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MovieService } from 'src/app/service/movie.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -13,10 +14,12 @@ export class MoviesListComponent implements OnInit {
   isAdmin: boolean = true; 
   searchTerm: string = '';
 
-  constructor(private route: ActivatedRoute, private MService: MovieService) {}
+  constructor(private route: ActivatedRoute, private authService: AuthService,
+     private MService: MovieService) {}
 
   ngOnInit(): void {
     this.loadAllMovies();
+    // this.isAdmin = this.authService.getRole() === 'ADMIN';
   }
 
   loadAllMovies(): void {

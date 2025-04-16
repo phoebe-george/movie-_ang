@@ -21,22 +21,4 @@ export class MovieDetailsComponent implements OnInit {
       });
     }
   }
-
-  // ngOnInit(): void {
-  //   const id = this.route.snapshot.paramMap.get('id');
-  //   console.log(id);
-  //   if (id) {
-  //     this.MService.GetMovieByID(Number(id)).subscribe(data => {
-  //       this.movie = data;
-  //       this.movie = {
-  //         imdbId: 2,
-  //         movieName: "The Dark Knight",
-  //         type: "action",
-  //         releaseYear: "2008",
-  //         poster: "https://m.media-amazon.com/images/I/51EG732BV3L._AC_.jpg",
-  //         rate: "5"
-  //       };
-  //     });
-  //   }
-  // }
 }

@@ -36,7 +36,6 @@ export class RegisterComponent {
         (res: any) => {
           console.log('Registration successful:', res);
   
-          // ✅ Save token and role in sessionStorage
           if (res.token) {
             sessionStorage.setItem('authToken', res.token);
           }
