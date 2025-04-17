@@ -3,19 +3,21 @@ import { MovieService } from 'src/app/service/movie.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 
-
 @Component({
   selector: 'app-movies-list',
   templateUrl: './movies-list.component.html',
-  styleUrls: ['./movies-list.component.scss']
+  styleUrls: ['./movies-list.component.scss'],
 })
 export class MoviesListComponent implements OnInit {
-  movies: any[] = [];  
-  isAdmin: boolean = true; 
+  movies: any[] = [];
+  isAdmin: boolean = true;
   searchTerm: string = '';
 
-  constructor(private route: ActivatedRoute, private authService: AuthService,
-     private MService: MovieService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private MService: MovieService
+  ) {}
 
   ngOnInit(): void {
     this.loadAllMovies();
@@ -24,21 +26,21 @@ export class MoviesListComponent implements OnInit {
 
   loadAllMovies(): void {
     this.MService.GetAllMovies().subscribe({
-      next: (data) => {
+      next: (data: any) => {
         this.movies = data.map((movie: any) => ({
           ...movie,
-          isNew: false
+          isNew: false,
         }));
       },
       error: (err) => {
         console.error(err);
-      }
+      },
     });
   }
 
   searchMovies(): void {
     if (this.searchTerm.trim() === '') {
-      this.loadAllMovies(); 
+      this.loadAllMovies();
       return;
     }
 
@@ -46,16 +48,12 @@ export class MoviesListComponent implements OnInit {
       next: (data) => {
         this.movies = data.map((movie: any) => ({
           ...movie,
-          isNew: true
+          isNew: true,
         }));
       },
       error: (err) => {
         console.error(err);
-      }
+      },
     });
   }
-  
-
-
 }
-

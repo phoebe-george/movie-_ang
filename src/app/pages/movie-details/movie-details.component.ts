@@ -5,7 +5,7 @@ import { MovieService } from 'src/app/service/movie.service';
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.component.html',
-  styleUrls: ['./movie-details.component.scss']
+  styleUrls: ['./movie-details.component.scss'],
 })
 export class MovieDetailsComponent implements OnInit {
   movie: any;
@@ -17,7 +17,7 @@ export class MovieDetailsComponent implements OnInit {
     console.log(id);
     if (id) {
       this.MService.GetMovieByID(Number(id)).subscribe((data) => {
-        this.movie = data[0];
+        this.movie = data;
       });
     }
   }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
 import { MovieService } from 'src/app/service/movie.service';
@@ -6,15 +6,18 @@ import { MovieService } from 'src/app/service/movie.service';
 @Component({
   selector: 'app-movies-card',
   templateUrl: './movies-card.component.html',
-  styleUrls: ['./movies-card.component.scss']
+  styleUrls: ['./movies-card.component.scss'],
 })
 export class MoviesCardComponent {
   @Input() movie: any;
-  @Input() isNew:boolean = false;
+  @Input() isNew: boolean = false;
+  @Output() refreshMovies = new EventEmitter<void>();
   // @Input() isAdmin: boolean = false;
-   isAdmin: boolean = false;
+  isAdmin: boolean = false;
 
-  constructor(private router: Router , private authService: AuthService,
+  constructor(
+    private router: Router,
+    private authService: AuthService,
     private movieService: MovieService
   ) {}
 
@@ -41,23 +44,22 @@ export class MoviesCardComponent {
   //   });
   // }
 
-
   removeMovie() {
     console.log('Removing movie:', this.movie.imdbId);
-  
-    this.movieService.deleteMovie(this.movie.imdbId).subscribe({
+
+    this.movieService.deleteMovie(this.movie.id).subscribe({
       next: () => {
         console.log('Movie removed successfully.');
         this.movie.isAdded = false;
+        this.refreshMovies.emit();
       },
       error: (err) => {
         console.error('Error removing movie:', err);
-      }
+      },
     });
   }
-  
 
   viewDetails() {
-    this.router.navigate(['/movies', this.movie.imdbId]);
+    this.router.navigate(['/movie-details', this.movie.id]);
   }
 }
